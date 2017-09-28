@@ -13,11 +13,6 @@ class Persona(models.Model):
     fechaDeNacimiento = models.DateField()
     tipoDeTrabajoQuePuedeRealizar = models.ForeignKey('Rubro', null=True, blank=True, on_delete=models.CASCADE)
     desocupado = models.BooleanField()
-    experiencialaboral = models.CharField(max_length=2000)
-    formacion = models.CharField(max_length=2000)
-    habilidades = models.CharField(max_length=2000)
-
-
     def __str__(self):
             return self.nombre
 
