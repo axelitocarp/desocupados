@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>empresa</title>
+</head>
+<body>
+<div class="trans" style="z-index:1;filter:alpha(opacity=50);float:center;-moz-opacity:.50;opacity:.70">
+<div id="header">
+<h1></h1>
+</div>
+    {% for empr in empresa %}
+        <div>
+            <h4>Cuit: {{ empr.cuit }}</h4>
+            <h4>Razonsocial: {{ empr.razonSocial }}</h4>
+            <h4>Rubro: {{ empr.rubro }}</h4>
+            <h4>Activa: {{ empr.activa }}</h4>
+            <br><br>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>

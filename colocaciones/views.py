@@ -13,9 +13,23 @@ from django.http import *
 def lista(request):
     return render(request, 'lalista.html')
 
-def lista_personas(request):
+def lista_p(request):
         persvar = Persona.objects.all()
         return render(request, 'lista_pers.html', {'persona' : persvar})
+
+
+def lista_o(request):
+	ofervar = Oferta.objects.all()
+	return render(request, 'lista_o.html', {'oferta': ofervar})
+
+
+def lista_e(request):
+	emprvar = Empresa.objects.all()
+	return render(request, 'lista_e.html', {'empresa': emprvar})
+
+
+
+
 
 def register_user(request):
 	username = password = email =''
