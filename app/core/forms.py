@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from app.core.models import *
 
 class RegistroDesocupado(UserCreationForm):
     dni = forms.CharField(required=True)
@@ -44,7 +45,6 @@ class RegistroEmpresa(UserCreationForm):
     cuit = forms.CharField(max_length=10)
     razon_social = forms.CharField()
     rubro = forms.CharField()
-
     class Meta:
         model = User
         # Le pega a user, porq queremos que guarde el usuario,
@@ -65,3 +65,54 @@ class RegistroEmpresa(UserCreationForm):
         user.save()
         # Y lo devolvemos
         return user
+
+class JobForm(forms.ModelForm):
+
+    class Meta:
+        model = Trabajo
+        fields = ('cargo', 'descripcion', 'horario', 'profesion', 'ubicacion')
+
+"""
+class JobForm(forms.ModelForm):
+    	
+	class Meta:
+		model = Trabajo
+
+		fields = [
+			'cargo',
+			'descripcion',
+			'horario',
+			'profesion',
+            'ubicacion',
+		]
+		labels = {
+			'cargo': 'Cargo',
+			'descripcion' : 'Descripcion',
+			'horario' : 'Horario',
+			'profesion' : 'Profesion',
+		    'ubicacion' : 'Ubicacion',  
+        }
+		widgets = {
+			'cargo': forms.TextInput(attrs={'class':'form-control'}),
+			'descripcion': forms.TextInput(attrs={'class':'form-control'}),
+			'horario': forms.TextInput(attrs={'class':'form-control'}),
+			'profesion': forms.TextInput(attrs={'class':'form-control'}),
+            'ubicacion' : forms.TextInput(attrs={'class':'form-control'}),
+		}
+"""
+
+class ModificarDesocupado(forms.ModelForm):
+    class Meta:
+        model = Desocupado
+        fields = ['nombre', 'apellido','fecha_nacimiento','localidad', 'experiencia_laboral','formacion', 'habilidades', 'trabajo_realizable', 'dni']
+
+class ModificarEmpresa(forms.ModelForm):
+    class Meta:
+        model = Empresa
+        fields = ['cuit', 'rubro', 'razon_social']
+
+class ModificarTrabajo(forms.ModelForm):
+    class Meta:
+        model = Trabajo
+        fields = ['cargo', 'descripcion', 'horario', 'profesion', 'ubicacion']
+

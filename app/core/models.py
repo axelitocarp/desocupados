@@ -39,7 +39,9 @@ class Desocupado(models.Model):
 
     # Como se representa como texto, o sea, como se ve en el admin
     def __str__(self):
-        return "Desocupado: " + str(self.nombre) + " " + str(self.apellido)  + " de " + str(self.user.username)
+        if self.dni is None:
+            return "Dato de empresa"
+        return "Desocupado: " + str(self.nombre) + " " + str(self.apellido)
 
 # Si se crea un usuario, se crea automáticamente un Desocupado 
 @receiver(post_save, sender=User)
@@ -55,11 +57,12 @@ class Empresa(models.Model):
     cuit = models.IntegerField(default=0)
     razon_social = models.CharField(max_length=50, null=True)
     rubro = models.CharField(max_length=30, null=True)
-    # oferta_laboral = models.ForeignKey('OfertaLaboral')
 
     # Como se representa como texto, o sea, como se ve en el admin
     def __str__(self):
-        return "Empresa" + str(self.razon_social) + " de " + str(self.user.username)
+        if self.cuit is None or self.cuit == 0:
+            return "Dato de desocupado"
+        return "Empresa" + " " + str(self.razon_social)
 
 # Si se crea un usuario, se crea automáticamente una Empresa
 @receiver(post_save, sender=User)
@@ -67,30 +70,17 @@ def update_user_empresa(sender, instance, created, **kwargs):
     if created:
         Empresa.objects.create(user=instance)
     instance.empresa.save()
+  
+# Con respecto a lo que tenían, los nombres de las clases siempre van en singular
+class Trabajo(models.Model):
+    # Y los atributos siempre en snake_case
+    cargo = models.CharField(max_length=20)
+    descripcion = models.TextField(max_length=200)
+    horario = models.CharField(max_length=20)
+    profesion = models.CharField(max_length=20)
+    ubicacion = models.CharField(max_length=20)    
+    empresa = models.ForeignKey('core.Empresa')
 
-
-class Rubro(models.Model):
-    tipoDeTrabajo = models.CharField(max_length=20)
     def __str__(self):
-            return self.tipoDeTrabajo
-
-class Oferta(models.Model):
-    # Toda entidad ya tiene un id deforma predeterminada
-    #id = models.CharField(max_length=20, primary_key=True)
-    #empresa = models.ForeignKey('Empresa', null=True, blank=True, on_delete=models.CASCADE)
-    #necesidad = models.ForeignKey('Rubro', null=True, blank=True, on_delete=models.CASCADE)
-    activa = models.BooleanField()
-    inicioContrato = models.DateField()
-    finContrato = models.DateField()
-    def __str__(self):
-            return self.id
-
-class Empleo(models.Model):
-    #persona = models.ForeignKey('Persona', null=True, blank=True, on_delete=models.CASCADE)
-    #oferta = models.ForeignKey('Oferta', null=True, blank=True, on_delete=models.CASCADE)
-    #empresa = models.ForeignKey('Empresa', null=True, blank=True, on_delete=models.CASCADE)
-    inicioContrato = models.DateField()
-    finContrato = models.DateField()
-    def __str__(self):
-            return self.oferta
+        return self.cargo
 

@@ -1,23 +1,67 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{{ static('css/blog.css') }}">
     <meta charset="utf-8">
-    <title>{% block title %}Colocaciones{% endblock %}</title>
-    <link rel='stylesheet' href={{ static('css/style.css') }}>
+    <title>{% block title %}DesocupaDab{% endblock %}</title>
+    <link rel='stylesheet' href="{{ static('css/style.css') }}">
+    <style type="text/css">
+	h1{
+	color:brown;
+}
+	h3{
+	color:green;
+}
+      .btn{
+        margin-top: 10px ;
+        margin-right: 10px ;
+      }
+    </style>
+    <script>
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+    var myDropdown = document.getElementById("myDropdown");
+      if (myDropdown.classList.contains('show')) {
+        myDropdown.classList.remove('show');
+      }
+  }
+}
+</script>
   </head>
-  <body>
-    <header>
-      <h1>Colocaciones</h1>
-      {% if user.is_authenticated() %}
-        <a href="{{ url('logout') }}">cerrar sesion</a>
-      {% else %}
-        <a href="{{ url('login') }}">ingresar</a> / <a href="{{ url('registrar.empresa') }}">registrar</a>
-      {% endif %}
-      <hr>
-    </header>
-    <main>
+ <body background="/static/images/fondo4.jpg" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-right">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url('home') }}" style="margin-top: -15px;height: 100px;"><img src="/static/images/logo1.jpg" width="150" height="85" align="left"></a>
+        </div>
+          {% if user.is_authenticated() %}
+           <div class="nav navbar-nav navbar-right">
+              <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()"><span class="glyphicon glyphicon-align-justify"></span>
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content w3-bar-block w3-border" id="myDropdown">
+                  <a href="{{ url('perfil')}}" class="w3-bar-item w3-button">
+                    <span class="glyphicon glyphicon-user">Mi Perfil</a>
+                  <a href="{{ url('logout') }}" class="w3-bar-item w3-button">
+                    <span class="glyphicon glyphicon-log-out">Cerrar sesión</a>
+                </div>
+              </div> 
+          </div>
+        </div> 
+          {% endif %}
+      </div>    
+    </nav>     
+    <div class="main">
       {% block content %}
       {% endblock %}
-    </main>
+    </div>
   </body>
 </html>
+

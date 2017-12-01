@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div align="center">
+        <a class="btn btn-default" href="{{ url('home') }}"><span class="glyphicon glyphicon-home">Pagina principal</span></a>
+<br><br>
+<img src="/static/images/dab2.jpg" width="50" height="65" align="rigth"></a>
+	{% for trabajo in lista_trabajos %}
+     <div>
+<br><br><br>
+      <h3>Cargo: {{ trabajo.cargo }}</h3>
+<br>
+      <h3>Breve descripcion: {{ trabajo.descripcion }} </h3>
+<br>
+      <h3>Franja horaria: {{ trabajo.horario }} </h3>
+<br>
+      <h3>Ubicación: {{ trabajo.ubicacion }} </h3>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}

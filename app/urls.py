@@ -23,8 +23,13 @@ urlpatterns = [
     url(r'^$', core_views.home, name='home'),
     url(r'^registrar/desocupado$', core_views.registro_desocupado, name='registrar.desocupado'),
     url(r'^registrar/empresa$', core_views.registro_empresa, name='registrar.empresa'),
-    # Estas ya estaban
-    url(r'^personas/', core_views.lista_p),
-    url(r'^ofertas/', core_views.lista_o),
-    url(r'^empresas/', core_views.lista_e)
+	url(r'^eliminar/(?P<user_id>\d+)/$', core_views.eliminar, name="eliminar"),
+    url(r'^editarDesocupado', core_views.editar, name='editar'),
+    url(r'^editarEmpresa', core_views.editar, name='editar'),
+    url(r'^registrar/trabajo$', core_views.registro_trabajo, name='registrar.trabajo'),
+    url(r'^misOfertas/$', core_views.listar_trabajos, name='me.ofertas'),
+    url(r'^ofertas/$', core_views.listar_todos_trabajos, name='ofertas'),
+    url(r'^editarEmpresa', core_views.editar, name='editarEmpresa'),
+    url(r'^editarDesocupado', core_views.editar, name='editarDesocupado'),
+    url(r'^perfil', core_views.perfil, name='perfil'),
 ]

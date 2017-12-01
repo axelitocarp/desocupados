@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
-
 {% block content %}
-  <h2>Welcome, {{ user.get_full_name() }} <small>{{ user.username }}</small>!</h2>
-  <p>Sos un: {{ user.profile_type() }}</p>
-  <p>Algunos datos relevantes son:</p>
+<div align="center">
+  <h1>Hola {{ user.get_full_name() }}</h1>
+<img src="/static/images/dab3.jpg" width="50" height="65" align="rigth"></a>
+  <h3>Sos: "{{ user.profile_type() }}"</h3>
+<br><br><br>
+  <h3>Datos Importantes:</h3>
   {% if user.is_empresa() %}
-    <p>CUIT: {{ user.profile().cuit }}</p>
+    <h3>Cuit: {{ user.profile().cuit }}</h3>
   {% endif %}
   {% if user.is_desocupado() %}
-    <p>DNI: {{ user.profile().dni }}</p>
+    <h3>Experiencia laboral: {{ user.profile().experiencia_laboral }}</h3>
+    <h3>Habilidades: {{ user.profile().habilidades }}</h3>
+    <a class="btn btn-success" href="{{ url('perfil') }}">Ofertas</a>
   {% endif %}
+  {% if user.is_empresa() %}
+  <a class="btn btn-default" href="{{ url('registrar.trabajo') }}">Registro de Trabajo</a>
+  <a class="btn btn-success" href="{{ url('me.ofertas') }}">Ofertas</a>
+  {% endif %}
+</div>
 {% endblock %}

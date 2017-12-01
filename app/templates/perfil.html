@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div align="center">
+        <a class="btn btn-success" href="{{ url('home') }}"><span class="glyphicon glyphicon-home"> Pagina principal</span></a>
+<br><br>
+<img src="/static/images/dab1.jpg" width="80" height="100" align="rigth"></a>
+<br><br>
+<h1>Éste es tu perfil {{ user.get_full_name() }}</h1>
+<br><br>
+  {% if user.is_empresa() %}
+    <h3>Cuit: {{ user.profile().cuit }}</h3>
+    <h3>Razon social: {{ user.profile().razon_social }}</h3>
+    <h3>Rubro: {{ user.profile().rubro }}</h3>
+  {% endif %}
+  {% if user.is_desocupado() %}
+    <h3>DNI: {{ user.profile().dni }}</h3>
+    <h3>Fecha de nacimiento: {{ user.profile().fecha_nacimiento}}</h3>
+    <h3>Localidad: {{ user.profile().localidad }}</h3>
+    <h3>Experienci laboral: {{ user.profile().experiencia_laboral }}</h3>
+    <h3>Formacion: {{ user.profile().formacion }}</h3>
+    <h3>Habilidades: {{ user.profile().habilidades }}</h3>
+    <h3>Trabajo realizable: {{user.profile().trabajo_realizable }}</h3>
+  {% endif %}
+<br><br>  
+   <a class="btn btn-danger" href="{{ url('eliminar', user.id) }}">Borrar</a>	
+   <a class="btn btn-default" href="{{ url('editar') }}">Modificar</a>
+</div>
+{% endblock %}
